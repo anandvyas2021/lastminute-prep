@@ -2,26 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  =============================================================================
+  THEME DESIGN TOKENS (Light / Dark Mode without 'dark:' Tailwind classes)
+  =============================================================================
+  
+  Why CSS Variables instead of dark: classes?
+  By defining design tokens with CSS custom properties, our Tailwind classes 
+  (e.g., `bg-card`, `text-main`, `border-line`) automatically adapt based on 
+  the `data-theme` attribute on the <html> tag. 
+  
+  This keeps your JSX components clean, DRY, and easy to maintain without 
+  sprinkling `dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800` 
+  on every single HTML element!
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Page & Layout Backgrounds */
+  --bg-page: #f8fafc;        /* Soft neutral background (slate-50) */
+  --bg-sidebar: #ffffff;     /* Crisp white sidebar */
+  --bg-card: #ffffff;        /* White card surface */
+  --bg-card-hover: #f1f5f9;  /* Subtle hover state */
+  --bg-input: #f1f5f9;       /* Input box background */
+  --bg-muted: #e2e8f0;       /* Divider / muted background */
+
+  /* Text Colors */
+  --text-main: #0f172a;      /* High contrast primary text (slate-900) */
+  --text-sub: #475569;       /* Readable secondary body text (slate-600) */
+  --text-muted: #94a3b8;     /* Helper text / labels (slate-400) */
+
+  /* Borders & Dividers */
+  --border-line: #e2e8f0;    /* Crisp subtle border (slate-200) */
+  --border-strong: #cbd5e1;  /* Emphasized border (slate-300) */
+
+  /* Accent Brand (Royal Indigo / Modern Blue) */
+  --accent-main: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-subtle: #eff6ff;
+  --accent-text: #1d4ed8;
+
+  /* Status Colors */
+  --success-main: #10b981;
+  --success-subtle: #ecfdf5;
+  --warning-main: #f59e0b;
+  --warning-subtle: #fffbeb;
+  --danger-main: #ef4444;
+  --danger-subtle: #fef2f2;
+
+  /* Code Blocks */
+  --code-bg: #1e293b;
+  --code-text: #f8fafc;
+  --code-border: #334155;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme='dark'] {
+  /* Page & Layout Backgrounds */
+  --bg-page: #0b0f17;        /* Deep, rich dark slate (not pure black) */
+  --bg-sidebar: #111726;     /* Dark navy-tinted sidebar */
+  --bg-card: #151d2f;        /* Elevated card background */
+  --bg-card-hover: #1c273e;  /* Distinct interactive card hover */
+  --bg-input: #1a2337;       /* Dark input background */
+  --bg-muted: #1e293b;       /* Dark muted background */
+
+  /* Text Colors */
+  --text-main: #f8fafc;      /* High contrast light text */
+  --text-sub: #94a3b8;       /* Readable subdued light text */
+  --text-muted: #64748b;     /* Dark mode muted labels */
+
+  /* Borders & Dividers */
+  --border-line: #1e293b;    /* Subdued dark border */
+  --border-strong: #334155;  /* Stronger divider */
+
+  /* Accent Brand */
+  --accent-main: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-subtle: #172554;
+  --accent-text: #93c5fd;
+
+  /* Status Colors */
+  --success-main: #10b981;
+  --success-subtle: #064e3b40;
+  --warning-main: #f59e0b;
+  --warning-subtle: #78350f40;
+  --danger-main: #f87171;
+  --danger-subtle: #7f1d1d40;
+
+  /* Code Blocks */
+  --code-bg: #0d121f;
+  --code-text: #e2e8f0;
+  --code-border: #1e293b;
+}
+
+/* Global Reset and Body Styling */
+* {
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
